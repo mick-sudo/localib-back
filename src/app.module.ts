@@ -7,6 +7,8 @@ import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { CarsModule } from './cars/cars.module';
 import { LocationsModule } from './locations/locations.module';
+import { Car } from './cars/entities/car.entity';
+import { Location } from './locations/entities/location.entity';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -16,7 +18,7 @@ import { LocationsModule } from './locations/locations.module';
     username: 'root',
     password: 'root',
     database: 'localib',
-    entities: [User],
+    entities: [User, Car, Location],
     synchronize: true,
   }), UsersModule, CarsModule, LocationsModule,
   ],

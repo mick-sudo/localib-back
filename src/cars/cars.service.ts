@@ -1,23 +1,32 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateCarDto } from './dto/create-car.dto';
 import { UpdateCarDto } from './dto/update-car.dto';
+import { Car } from './entities/car.entity';
 
 @Injectable()
 export class CarsService {
+
+  constructor(@InjectRepository(Car) private carRepository: Repository<Car>) { }
+
   create(createCarDto: CreateCarDto) {
-    return 'This action adds a new car';
+    const newCar = this.carRepository.create({
+      ...createCarDto,
+    });
+    return this.carRepository.save(newCar);
   }
 
   findAll() {
-    return `This action returns all cars`;
+    return this.carRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} car`;
+  findOne(id: number): Promise<Car> {
+    return this.carRepository.findOneBy({ id });
   }
 
   update(id: number, updateCarDto: UpdateCarDto) {
-    return `This action updates a #${id} car`;
+    return this.carRepository.update({ id }, { ...updateCarDto });
   }
 
   remove(id: number) {

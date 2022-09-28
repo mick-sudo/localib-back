@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Location } from 'src/locations/entities/location.entity';
 
 @Entity()
 export class User {
@@ -6,15 +7,20 @@ export class User {
   id: number;
 
   @Column()
-  firstName: string;
+  prenom: string;
 
   @Column()
-  lastName: string;
+  nom: string;
+
+  @Column()
+  date_naissance: Date;
 
   @Column()
   email: string;
 
   @Column()
-  phone: string;
+  telephone: string;
 
+  @OneToMany(() => Location, (location) => location.user)
+  locations: Location[];
 }
