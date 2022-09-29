@@ -13,6 +13,9 @@ export class Location {
   @Column()
   fin_location: Date;
 
+  @Column()
+  prix_totale: number;
+
 
   @ManyToOne(() => Car, (car) => car.locations)
   car: Car;
