@@ -29,6 +29,7 @@
 ## Installation
 
 ```bash
+bdd mysql: localib
 $ npm install
 ```
 
