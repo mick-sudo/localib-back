@@ -7,13 +7,12 @@ import { UsersModule } from './users/users.module';
 import { CarsModule } from './cars/cars.module';
 import { LocationsModule } from './locations/locations.module';
 import { ConfigModule } from '@nestjs/config';
-import appConfig from './config/app.config';
+
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [appConfig]
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
