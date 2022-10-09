@@ -4,23 +4,26 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { UsersModule } from './users/users.module';
-import { User } from './users/entities/user.entity';
 import { CarsModule } from './cars/cars.module';
 import { LocationsModule } from './locations/locations.module';
-import { Car } from './cars/entities/car.entity';
-import { Location } from './locations/entities/location.entity';
+import { ConfigModule } from '@nestjs/config';
+
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
-    type: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: 'root',
-    database: 'localib',
-    entities: [User, Car, Location],
-    synchronize: true,
-  }), UsersModule, CarsModule, LocationsModule,
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: 'localib',
+      entities: ["dist/**/*.entity{.ts,.js}"],
+      synchronize: true,
+    }), UsersModule, CarsModule, LocationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
